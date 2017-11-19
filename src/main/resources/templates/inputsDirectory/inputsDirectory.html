@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>农资销售企业信息</title>
+	<link rel="stylesheet" href="/css/newStyle.css"/>
+</head>
+<body>
+  <div id="layout"></div>
+</body>
+<script type="text/javascript" src="/js/menu.js"></script>
+<script type="text/javascript" th:inline="javascript">
+//层级，｛标题，URL｝
+    var userName = [[${#httpServletRequest.remoteUser}]];
+    var xxx = "/api/inputsDirectories"
+     if (userName == "admin"){
+       var searchUrl = "/api/inputsDirectories";
+     }else{
+       var searchUrl = "/api/inputsDirectories/search/findByUsername?username="+userName;
+     }
+    var selector = {
+      sellType:["农药","肥料","种子","农膜","兽药","饲料添加剂","添加剂"]
+    }
+
+    var pageParas ={
+       columns:[
+         {
+           title: '企业名称',
+           dataIndex: 'enterpriseName',
+           type:"input",
+           notNull:true
+         },{
+           title: '经营范围',
+           dataIndex: 'businessScope',
+           type:"input",
+           notNull:true
+         },{
+           title: '企业地址',
+           dataIndex: 'enterpriseaddress',
+           type:"input",
+           notNull:true
+         },{
+           title: '成立时间',
+           dataIndex: 'establishmentime',
+           type:"date",
+           notNull:true
+         },{
+           title: '联系人',
+           dataIndex: 'name',
+           type:"input",
+           notNull:true
+         },{
+           title: '联系方式',
+           dataIndex: 'phone',
+           type:"input",
+           notNull:true
+         },{
+           title: '占地面积',
+           dataIndex: 'areaCovered',
+           type:"input",
+           notNull:true
+         },{
+           title: '规模',
+           dataIndex: 'scale',
+           type:"input",
+           notNull:true
+         },{
+           title: '总投资',
+           dataIndex: 'totalInvestment',
+           type:"inputNumber",
+           notNull:true
+         },{
+           title: '在职人数',
+           dataIndex: 'incumbency',
+           type:"inputNumber",
+           notNull:true
+         },{
+           title: '企业类型',
+           dataIndex: 'selltype',
+           type:"selector",
+           options:selector.sellType,
+           notNull:true
+         },{
+           title: '营业执照',
+           dataIndex: 'businessLicenseUrl',
+           type:"image",
+           fileTypeList:"png,jpg,jpeg,gif,bmp,icon",
+         },{
+           title: '法人身份证照片',
+           dataIndex: 'idCardUrl',
+           type:"image",
+           fileTypeList:"png,jpg,jpeg,gif,bmp,icon",
+         },{
+           title: '单位门脸照',
+           dataIndex: 'enterpriseImgUrl',
+           type:"image",
+           fileTypeList:"png,jpg,jpeg,gif,bmp,icon",
+         }
+
+      ],  
+      // resourceUrl:"http://192.168.3.2:8083/api/enterpriseDirectories", 
+      // listUrl:"http://192.168.3.2:8083/api/enterpriseDirectories", 
+      resourceUrl:xxx, //crud
+      listUrl:searchUrl,  //http://localhost:8083/api/purchaseRecords/search/findByUsername?username=swl
+      title : "农资销售企业信息",
+      uploadUrl:'/api/upload/',//文件上传
+      deleteUrl: "/api/delete/inputsDirectory",//单数
+      defaultSelectedKeys:['苹果'],
+      defaultOpenKeys:['水果']
+    } 
+</script>
+<script src="/js/commonV3.js"></script>
+<script src="/js/crudLayout-bundle.js"></script>
+</html>
