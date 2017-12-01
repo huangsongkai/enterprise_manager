@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface BlackListDirectoryRepository extends BaseRepository<BlackListDirectory, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN') or #username == authentication?.name")
     public Page<BlackListDirectory> findByUsername(@Param("username") String username, Pageable pageable);
-    @PreAuthorize("hasRole('ROLE_ADMIN') or #blackListDirectory.username == authentication?.name")
-    public BlackListDirectory save(BlackListDirectory blackListDirectory);
 
 //    spel
 }

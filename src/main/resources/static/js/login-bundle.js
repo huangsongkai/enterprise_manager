@@ -1137,7 +1137,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = {
-  required: __webpack_require__(150),
+  required: __webpack_require__(151),
   whitespace: __webpack_require__(272),
   type: __webpack_require__(271),
   range: __webpack_require__(270),
@@ -9545,527 +9545,6 @@ module.exports = warning;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = addEventListenerWrap;
-
-var _addDomEventListener = __webpack_require__(226);
-
-var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
-
-var _reactDom = __webpack_require__(15);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function addEventListenerWrap(target, eventType, cb) {
-  /* eslint camelcase: 2 */
-  var callback = _reactDom2["default"].unstable_batchedUpdates ? function run(e) {
-    _reactDom2["default"].unstable_batchedUpdates(cb, e);
-  } : cb;
-  return (0, _addDomEventListener2["default"])(target, eventType, callback);
-}
-module.exports = exports['default'];
-
-/***/ }),
-/* 144 */,
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FIELD_META_PROP = exports.FIELD_META_PROP = 'data-__meta';
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Col = exports.Row = undefined;
-
-var _row = __webpack_require__(253);
-
-var _row2 = _interopRequireDefault(_row);
-
-var _col = __webpack_require__(252);
-
-var _col2 = _interopRequireDefault(_col);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-exports.Row = _row2["default"];
-exports.Col = _col2["default"];
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(20);
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports["default"] = undefined;
-
-var _extends2 = __webpack_require__(6);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = __webpack_require__(9);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _classCallCheck2 = __webpack_require__(10);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _possibleConstructorReturn2 = __webpack_require__(12);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(11);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = __webpack_require__(7);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _calculateNodeHeight = __webpack_require__(257);
-
-var _calculateNodeHeight2 = _interopRequireDefault(_calculateNodeHeight);
-
-var _objectAssign = __webpack_require__(5);
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-var _omit = __webpack_require__(53);
-
-var _omit2 = _interopRequireDefault(_omit);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function fixControlledValue(value) {
-    if (typeof value === 'undefined' || value === null) {
-        return '';
-    }
-    return value;
-}
-function onNextFrame(cb) {
-    if (window.requestAnimationFrame) {
-        return window.requestAnimationFrame(cb);
-    }
-    return window.setTimeout(cb, 1);
-}
-function clearNextFrameAction(nextFrameId) {
-    if (window.cancelAnimationFrame) {
-        window.cancelAnimationFrame(nextFrameId);
-    } else {
-        window.clearTimeout(nextFrameId);
-    }
-}
-;
-
-var Input = function (_Component) {
-    (0, _inherits3["default"])(Input, _Component);
-
-    function Input() {
-        (0, _classCallCheck3["default"])(this, Input);
-
-        var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.apply(this, arguments));
-
-        _this.state = {
-            textareaStyles: null,
-            isFocus: false
-        };
-        _this.handleKeyDown = function (e) {
-            var _this$props = _this.props,
-                onPressEnter = _this$props.onPressEnter,
-                onKeyDown = _this$props.onKeyDown;
-
-            if (e.keyCode === 13 && onPressEnter) {
-                onPressEnter(e);
-            }
-            if (onKeyDown) {
-                onKeyDown(e);
-            }
-        };
-        _this.handleTextareaChange = function (e) {
-            if (!('value' in _this.props)) {
-                _this.resizeTextarea();
-            }
-            var onChange = _this.props.onChange;
-            if (onChange) {
-                onChange(e);
-            }
-        };
-        _this.resizeTextarea = function () {
-            var _this$props2 = _this.props,
-                type = _this$props2.type,
-                autosize = _this$props2.autosize;
-
-            if (type !== 'textarea' || !autosize || !_this.refs.input) {
-                return;
-            }
-            var minRows = autosize ? autosize.minRows : null;
-            var maxRows = autosize ? autosize.maxRows : null;
-            var textareaStyles = (0, _calculateNodeHeight2["default"])(_this.refs.input, false, minRows, maxRows);
-            _this.setState({ textareaStyles: textareaStyles });
-        };
-        return _this;
-    }
-
-    Input.prototype.componentDidMount = function componentDidMount() {
-        this.resizeTextarea();
-    };
-
-    Input.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-        // Re-render with the new content then recalculate the height as required.
-        if (this.props.value !== nextProps.value) {
-            if (this.nextFrameActionId) {
-                clearNextFrameAction(this.nextFrameActionId);
-            }
-            this.nextFrameActionId = onNextFrame(this.resizeTextarea);
-        }
-    };
-
-    Input.prototype.focus = function focus() {
-        this.refs.input.focus();
-    };
-
-    Input.prototype.renderLabeledInput = function renderLabeledInput(children) {
-        var _classNames;
-
-        var props = this.props;
-        // Not wrap when there is not addons
-        if (props.type === 'textarea' || !props.addonBefore && !props.addonAfter) {
-            return children;
-        }
-        var wrapperClassName = props.prefixCls + '-group';
-        var addonClassName = wrapperClassName + '-addon';
-        var addonBefore = props.addonBefore ? _react2["default"].createElement(
-            'span',
-            { className: addonClassName },
-            props.addonBefore
-        ) : null;
-        var addonAfter = props.addonAfter ? _react2["default"].createElement(
-            'span',
-            { className: addonClassName },
-            props.addonAfter
-        ) : null;
-        var className = (0, _classnames2["default"])((_classNames = {}, (0, _defineProperty3["default"])(_classNames, props.prefixCls + '-wrapper', true), (0, _defineProperty3["default"])(_classNames, wrapperClassName, addonBefore || addonAfter), _classNames));
-        return _react2["default"].createElement(
-            'span',
-            { className: className },
-            addonBefore,
-            children,
-            addonAfter
-        );
-    };
-
-    Input.prototype.renderLabeledIcon = function renderLabeledIcon(children) {
-        var props = this.props;
-
-        if (props.type === 'textarea' || !('prefix' in props || 'suffix' in props)) {
-            return children;
-        }
-        var prefix = props.prefix ? _react2["default"].createElement(
-            'span',
-            { className: props.prefixCls + '-prefix' },
-            props.prefix
-        ) : null;
-        var suffix = props.suffix ? _react2["default"].createElement(
-            'span',
-            { className: props.prefixCls + '-suffix' },
-            props.suffix
-        ) : null;
-        return _react2["default"].createElement(
-            'span',
-            { className: props.prefixCls + '-affix-wrapper', style: props.style },
-            prefix,
-            (0, _react.cloneElement)(children, { style: null }),
-            suffix
-        );
-    };
-
-    Input.prototype.renderInput = function renderInput() {
-        var _classNames2;
-
-        var props = (0, _objectAssign2["default"])({}, this.props);
-        // Fix https://fb.me/react-unknown-prop
-        var otherProps = (0, _omit2["default"])(this.props, ['prefixCls', 'onPressEnter', 'autosize', 'addonBefore', 'addonAfter', 'prefix', 'suffix']);
-        var prefixCls = props.prefixCls;
-        if (!props.type) {
-            return props.children;
-        }
-        var inputClassName = (0, _classnames2["default"])(prefixCls, (_classNames2 = {}, (0, _defineProperty3["default"])(_classNames2, prefixCls + '-sm', props.size === 'small'), (0, _defineProperty3["default"])(_classNames2, prefixCls + '-lg', props.size === 'large'), _classNames2), props.className);
-        if ('value' in props) {
-            otherProps.value = fixControlledValue(props.value);
-            // Input elements must be either controlled or uncontrolled,
-            // specify either the value prop, or the defaultValue prop, but not both.
-            delete otherProps.defaultValue;
-        }
-        switch (props.type) {
-            case 'textarea':
-                return _react2["default"].createElement('textarea', (0, _extends3["default"])({}, otherProps, { style: (0, _objectAssign2["default"])({}, props.style, this.state.textareaStyles), className: inputClassName, onKeyDown: this.handleKeyDown, onChange: this.handleTextareaChange, ref: 'input' }));
-            default:
-                return this.renderLabeledIcon(_react2["default"].createElement('input', (0, _extends3["default"])({}, otherProps, { className: inputClassName, onKeyDown: this.handleKeyDown, ref: 'input' })));
-        }
-    };
-
-    Input.prototype.render = function render() {
-        return this.renderLabeledInput(this.renderInput());
-    };
-
-    return Input;
-}(_react.Component);
-
-exports["default"] = Input;
-
-Input.defaultProps = {
-    disabled: false,
-    prefixCls: 'ant-input',
-    type: 'text',
-    autosize: false
-};
-Input.propTypes = {
-    type: _react.PropTypes.string,
-    id: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
-    size: _react.PropTypes.oneOf(['small', 'default', 'large']),
-    disabled: _react.PropTypes.bool,
-    value: _react.PropTypes.any,
-    defaultValue: _react.PropTypes.any,
-    className: _react.PropTypes.string,
-    addonBefore: _react.PropTypes.node,
-    addonAfter: _react.PropTypes.node,
-    prefixCls: _react.PropTypes.string,
-    autosize: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.object]),
-    onPressEnter: _react.PropTypes.func,
-    onKeyDown: _react.PropTypes.func,
-    onFocus: _react.PropTypes.func,
-    onBlur: _react.PropTypes.func,
-    prefix: _react.PropTypes.node,
-    suffix: _react.PropTypes.node
-};
-module.exports = exports['default'];
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports["default"] = undefined;
-
-var _extends2 = __webpack_require__(6);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classCallCheck2 = __webpack_require__(10);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _possibleConstructorReturn2 = __webpack_require__(12);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(11);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _rcDialog = __webpack_require__(478);
-
-var _rcDialog2 = _interopRequireDefault(_rcDialog);
-
-var _addEventListener = __webpack_require__(143);
-
-var _addEventListener2 = _interopRequireDefault(_addEventListener);
-
-var _button = __webpack_require__(67);
-
-var _button2 = _interopRequireDefault(_button);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var mousePosition = void 0;
-var mousePositionEventBinded = void 0;
-
-var Modal = function (_React$Component) {
-    (0, _inherits3["default"])(Modal, _React$Component);
-
-    function Modal() {
-        (0, _classCallCheck3["default"])(this, Modal);
-
-        var _this = (0, _possibleConstructorReturn3["default"])(this, _React$Component.apply(this, arguments));
-
-        _this.handleCancel = function (e) {
-            var onCancel = _this.props.onCancel;
-            if (onCancel) {
-                onCancel(e);
-            }
-        };
-        _this.handleOk = function (e) {
-            var onOk = _this.props.onOk;
-            if (onOk) {
-                onOk(e);
-            }
-        };
-        return _this;
-    }
-
-    Modal.prototype.componentDidMount = function componentDidMount() {
-        if (mousePositionEventBinded) {
-            return;
-        }
-        // 只有点击事件支持从鼠标位置动画展开
-        (0, _addEventListener2["default"])(document.documentElement, 'click', function (e) {
-            mousePosition = {
-                x: e.pageX,
-                y: e.pageY
-            };
-            // 100ms 内发生过点击事件，则从点击位置动画展示
-            // 否则直接 zoom 展示
-            // 这样可以兼容非点击方式展开
-            setTimeout(function () {
-                return mousePosition = null;
-            }, 100);
-        });
-        mousePositionEventBinded = true;
-    };
-
-    Modal.prototype.render = function render() {
-        var _props = this.props,
-            okText = _props.okText,
-            cancelText = _props.cancelText,
-            confirmLoading = _props.confirmLoading,
-            footer = _props.footer,
-            visible = _props.visible;
-
-        if (this.context.antLocale && this.context.antLocale.Modal) {
-            okText = okText || this.context.antLocale.Modal.okText;
-            cancelText = cancelText || this.context.antLocale.Modal.cancelText;
-        }
-        var defaultFooter = [_react2["default"].createElement(
-            _button2["default"],
-            { key: 'cancel', size: 'large', onClick: this.handleCancel },
-            cancelText || '取消'
-        ), _react2["default"].createElement(
-            _button2["default"],
-            { key: 'confirm', type: 'primary', size: 'large', loading: confirmLoading, onClick: this.handleOk },
-            okText || '确定'
-        )];
-        return _react2["default"].createElement(_rcDialog2["default"], (0, _extends3["default"])({ onClose: this.handleCancel, footer: footer === undefined ? defaultFooter : footer }, this.props, { visible: visible, mousePosition: mousePosition }));
-    };
-
-    return Modal;
-}(_react2["default"].Component);
-
-exports["default"] = Modal;
-
-Modal.defaultProps = {
-    prefixCls: 'ant-modal',
-    width: 520,
-    transitionName: 'zoom',
-    maskTransitionName: 'fade',
-    confirmLoading: false,
-    visible: false
-};
-Modal.propTypes = {
-    prefixCls: _react.PropTypes.string,
-    onOk: _react.PropTypes.func,
-    onCancel: _react.PropTypes.func,
-    okText: _react.PropTypes.node,
-    cancelText: _react.PropTypes.node,
-    width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
-    confirmLoading: _react.PropTypes.bool,
-    visible: _react.PropTypes.bool,
-    align: _react.PropTypes.object,
-    footer: _react.PropTypes.node,
-    title: _react.PropTypes.node,
-    closable: _react.PropTypes.bool
-};
-Modal.contextTypes = {
-    antLocale: _react2["default"].PropTypes.object
-};
-module.exports = exports['default'];
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(14);
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
-
-/**
- *  Rule for validating required fields.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function required(rule, value, source, errors, options, type) {
-  if (rule.required && (!source.hasOwnProperty(rule.field) || util.isEmptyValue(value, type || rule.type))) {
-    errors.push(util.format(options.messages.required, rule.fullField));
-  }
-}
-
-exports["default"] = required;
-module.exports = exports['default'];
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12287,6 +11766,527 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   }, b || (a.jQuery = a.$ = n), n;
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module)))
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = addEventListenerWrap;
+
+var _addDomEventListener = __webpack_require__(226);
+
+var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
+
+var _reactDom = __webpack_require__(15);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function addEventListenerWrap(target, eventType, cb) {
+  /* eslint camelcase: 2 */
+  var callback = _reactDom2["default"].unstable_batchedUpdates ? function run(e) {
+    _reactDom2["default"].unstable_batchedUpdates(cb, e);
+  } : cb;
+  return (0, _addDomEventListener2["default"])(target, eventType, callback);
+}
+module.exports = exports['default'];
+
+/***/ }),
+/* 145 */,
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FIELD_META_PROP = exports.FIELD_META_PROP = 'data-__meta';
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Col = exports.Row = undefined;
+
+var _row = __webpack_require__(253);
+
+var _row2 = _interopRequireDefault(_row);
+
+var _col = __webpack_require__(252);
+
+var _col2 = _interopRequireDefault(_col);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+exports.Row = _row2["default"];
+exports.Col = _col2["default"];
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(20);
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports["default"] = undefined;
+
+var _extends2 = __webpack_require__(6);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(9);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _classCallCheck2 = __webpack_require__(10);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(12);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(11);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(7);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _calculateNodeHeight = __webpack_require__(257);
+
+var _calculateNodeHeight2 = _interopRequireDefault(_calculateNodeHeight);
+
+var _objectAssign = __webpack_require__(5);
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+var _omit = __webpack_require__(53);
+
+var _omit2 = _interopRequireDefault(_omit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function fixControlledValue(value) {
+    if (typeof value === 'undefined' || value === null) {
+        return '';
+    }
+    return value;
+}
+function onNextFrame(cb) {
+    if (window.requestAnimationFrame) {
+        return window.requestAnimationFrame(cb);
+    }
+    return window.setTimeout(cb, 1);
+}
+function clearNextFrameAction(nextFrameId) {
+    if (window.cancelAnimationFrame) {
+        window.cancelAnimationFrame(nextFrameId);
+    } else {
+        window.clearTimeout(nextFrameId);
+    }
+}
+;
+
+var Input = function (_Component) {
+    (0, _inherits3["default"])(Input, _Component);
+
+    function Input() {
+        (0, _classCallCheck3["default"])(this, Input);
+
+        var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.apply(this, arguments));
+
+        _this.state = {
+            textareaStyles: null,
+            isFocus: false
+        };
+        _this.handleKeyDown = function (e) {
+            var _this$props = _this.props,
+                onPressEnter = _this$props.onPressEnter,
+                onKeyDown = _this$props.onKeyDown;
+
+            if (e.keyCode === 13 && onPressEnter) {
+                onPressEnter(e);
+            }
+            if (onKeyDown) {
+                onKeyDown(e);
+            }
+        };
+        _this.handleTextareaChange = function (e) {
+            if (!('value' in _this.props)) {
+                _this.resizeTextarea();
+            }
+            var onChange = _this.props.onChange;
+            if (onChange) {
+                onChange(e);
+            }
+        };
+        _this.resizeTextarea = function () {
+            var _this$props2 = _this.props,
+                type = _this$props2.type,
+                autosize = _this$props2.autosize;
+
+            if (type !== 'textarea' || !autosize || !_this.refs.input) {
+                return;
+            }
+            var minRows = autosize ? autosize.minRows : null;
+            var maxRows = autosize ? autosize.maxRows : null;
+            var textareaStyles = (0, _calculateNodeHeight2["default"])(_this.refs.input, false, minRows, maxRows);
+            _this.setState({ textareaStyles: textareaStyles });
+        };
+        return _this;
+    }
+
+    Input.prototype.componentDidMount = function componentDidMount() {
+        this.resizeTextarea();
+    };
+
+    Input.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+        // Re-render with the new content then recalculate the height as required.
+        if (this.props.value !== nextProps.value) {
+            if (this.nextFrameActionId) {
+                clearNextFrameAction(this.nextFrameActionId);
+            }
+            this.nextFrameActionId = onNextFrame(this.resizeTextarea);
+        }
+    };
+
+    Input.prototype.focus = function focus() {
+        this.refs.input.focus();
+    };
+
+    Input.prototype.renderLabeledInput = function renderLabeledInput(children) {
+        var _classNames;
+
+        var props = this.props;
+        // Not wrap when there is not addons
+        if (props.type === 'textarea' || !props.addonBefore && !props.addonAfter) {
+            return children;
+        }
+        var wrapperClassName = props.prefixCls + '-group';
+        var addonClassName = wrapperClassName + '-addon';
+        var addonBefore = props.addonBefore ? _react2["default"].createElement(
+            'span',
+            { className: addonClassName },
+            props.addonBefore
+        ) : null;
+        var addonAfter = props.addonAfter ? _react2["default"].createElement(
+            'span',
+            { className: addonClassName },
+            props.addonAfter
+        ) : null;
+        var className = (0, _classnames2["default"])((_classNames = {}, (0, _defineProperty3["default"])(_classNames, props.prefixCls + '-wrapper', true), (0, _defineProperty3["default"])(_classNames, wrapperClassName, addonBefore || addonAfter), _classNames));
+        return _react2["default"].createElement(
+            'span',
+            { className: className },
+            addonBefore,
+            children,
+            addonAfter
+        );
+    };
+
+    Input.prototype.renderLabeledIcon = function renderLabeledIcon(children) {
+        var props = this.props;
+
+        if (props.type === 'textarea' || !('prefix' in props || 'suffix' in props)) {
+            return children;
+        }
+        var prefix = props.prefix ? _react2["default"].createElement(
+            'span',
+            { className: props.prefixCls + '-prefix' },
+            props.prefix
+        ) : null;
+        var suffix = props.suffix ? _react2["default"].createElement(
+            'span',
+            { className: props.prefixCls + '-suffix' },
+            props.suffix
+        ) : null;
+        return _react2["default"].createElement(
+            'span',
+            { className: props.prefixCls + '-affix-wrapper', style: props.style },
+            prefix,
+            (0, _react.cloneElement)(children, { style: null }),
+            suffix
+        );
+    };
+
+    Input.prototype.renderInput = function renderInput() {
+        var _classNames2;
+
+        var props = (0, _objectAssign2["default"])({}, this.props);
+        // Fix https://fb.me/react-unknown-prop
+        var otherProps = (0, _omit2["default"])(this.props, ['prefixCls', 'onPressEnter', 'autosize', 'addonBefore', 'addonAfter', 'prefix', 'suffix']);
+        var prefixCls = props.prefixCls;
+        if (!props.type) {
+            return props.children;
+        }
+        var inputClassName = (0, _classnames2["default"])(prefixCls, (_classNames2 = {}, (0, _defineProperty3["default"])(_classNames2, prefixCls + '-sm', props.size === 'small'), (0, _defineProperty3["default"])(_classNames2, prefixCls + '-lg', props.size === 'large'), _classNames2), props.className);
+        if ('value' in props) {
+            otherProps.value = fixControlledValue(props.value);
+            // Input elements must be either controlled or uncontrolled,
+            // specify either the value prop, or the defaultValue prop, but not both.
+            delete otherProps.defaultValue;
+        }
+        switch (props.type) {
+            case 'textarea':
+                return _react2["default"].createElement('textarea', (0, _extends3["default"])({}, otherProps, { style: (0, _objectAssign2["default"])({}, props.style, this.state.textareaStyles), className: inputClassName, onKeyDown: this.handleKeyDown, onChange: this.handleTextareaChange, ref: 'input' }));
+            default:
+                return this.renderLabeledIcon(_react2["default"].createElement('input', (0, _extends3["default"])({}, otherProps, { className: inputClassName, onKeyDown: this.handleKeyDown, ref: 'input' })));
+        }
+    };
+
+    Input.prototype.render = function render() {
+        return this.renderLabeledInput(this.renderInput());
+    };
+
+    return Input;
+}(_react.Component);
+
+exports["default"] = Input;
+
+Input.defaultProps = {
+    disabled: false,
+    prefixCls: 'ant-input',
+    type: 'text',
+    autosize: false
+};
+Input.propTypes = {
+    type: _react.PropTypes.string,
+    id: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number]),
+    size: _react.PropTypes.oneOf(['small', 'default', 'large']),
+    disabled: _react.PropTypes.bool,
+    value: _react.PropTypes.any,
+    defaultValue: _react.PropTypes.any,
+    className: _react.PropTypes.string,
+    addonBefore: _react.PropTypes.node,
+    addonAfter: _react.PropTypes.node,
+    prefixCls: _react.PropTypes.string,
+    autosize: _react.PropTypes.oneOfType([_react.PropTypes.bool, _react.PropTypes.object]),
+    onPressEnter: _react.PropTypes.func,
+    onKeyDown: _react.PropTypes.func,
+    onFocus: _react.PropTypes.func,
+    onBlur: _react.PropTypes.func,
+    prefix: _react.PropTypes.node,
+    suffix: _react.PropTypes.node
+};
+module.exports = exports['default'];
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports["default"] = undefined;
+
+var _extends2 = __webpack_require__(6);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classCallCheck2 = __webpack_require__(10);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(12);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(11);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _rcDialog = __webpack_require__(478);
+
+var _rcDialog2 = _interopRequireDefault(_rcDialog);
+
+var _addEventListener = __webpack_require__(144);
+
+var _addEventListener2 = _interopRequireDefault(_addEventListener);
+
+var _button = __webpack_require__(67);
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var mousePosition = void 0;
+var mousePositionEventBinded = void 0;
+
+var Modal = function (_React$Component) {
+    (0, _inherits3["default"])(Modal, _React$Component);
+
+    function Modal() {
+        (0, _classCallCheck3["default"])(this, Modal);
+
+        var _this = (0, _possibleConstructorReturn3["default"])(this, _React$Component.apply(this, arguments));
+
+        _this.handleCancel = function (e) {
+            var onCancel = _this.props.onCancel;
+            if (onCancel) {
+                onCancel(e);
+            }
+        };
+        _this.handleOk = function (e) {
+            var onOk = _this.props.onOk;
+            if (onOk) {
+                onOk(e);
+            }
+        };
+        return _this;
+    }
+
+    Modal.prototype.componentDidMount = function componentDidMount() {
+        if (mousePositionEventBinded) {
+            return;
+        }
+        // 只有点击事件支持从鼠标位置动画展开
+        (0, _addEventListener2["default"])(document.documentElement, 'click', function (e) {
+            mousePosition = {
+                x: e.pageX,
+                y: e.pageY
+            };
+            // 100ms 内发生过点击事件，则从点击位置动画展示
+            // 否则直接 zoom 展示
+            // 这样可以兼容非点击方式展开
+            setTimeout(function () {
+                return mousePosition = null;
+            }, 100);
+        });
+        mousePositionEventBinded = true;
+    };
+
+    Modal.prototype.render = function render() {
+        var _props = this.props,
+            okText = _props.okText,
+            cancelText = _props.cancelText,
+            confirmLoading = _props.confirmLoading,
+            footer = _props.footer,
+            visible = _props.visible;
+
+        if (this.context.antLocale && this.context.antLocale.Modal) {
+            okText = okText || this.context.antLocale.Modal.okText;
+            cancelText = cancelText || this.context.antLocale.Modal.cancelText;
+        }
+        var defaultFooter = [_react2["default"].createElement(
+            _button2["default"],
+            { key: 'cancel', size: 'large', onClick: this.handleCancel },
+            cancelText || '取消'
+        ), _react2["default"].createElement(
+            _button2["default"],
+            { key: 'confirm', type: 'primary', size: 'large', loading: confirmLoading, onClick: this.handleOk },
+            okText || '确定'
+        )];
+        return _react2["default"].createElement(_rcDialog2["default"], (0, _extends3["default"])({ onClose: this.handleCancel, footer: footer === undefined ? defaultFooter : footer }, this.props, { visible: visible, mousePosition: mousePosition }));
+    };
+
+    return Modal;
+}(_react2["default"].Component);
+
+exports["default"] = Modal;
+
+Modal.defaultProps = {
+    prefixCls: 'ant-modal',
+    width: 520,
+    transitionName: 'zoom',
+    maskTransitionName: 'fade',
+    confirmLoading: false,
+    visible: false
+};
+Modal.propTypes = {
+    prefixCls: _react.PropTypes.string,
+    onOk: _react.PropTypes.func,
+    onCancel: _react.PropTypes.func,
+    okText: _react.PropTypes.node,
+    cancelText: _react.PropTypes.node,
+    width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
+    confirmLoading: _react.PropTypes.bool,
+    visible: _react.PropTypes.bool,
+    align: _react.PropTypes.object,
+    footer: _react.PropTypes.node,
+    title: _react.PropTypes.node,
+    closable: _react.PropTypes.bool
+};
+Modal.contextTypes = {
+    antLocale: _react2["default"].PropTypes.object
+};
+module.exports = exports['default'];
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _util = __webpack_require__(14);
+
+var util = _interopRequireWildcard(_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj["default"] = obj; return newObj; } }
+
+/**
+ *  Rule for validating required fields.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+function required(rule, value, source, errors, options, type) {
+  if (rule.required && (!source.hasOwnProperty(rule.field) || util.isEmptyValue(value, type || rule.type))) {
+    errors.push(util.format(options.messages.required, rule.fullField));
+  }
+}
+
+exports["default"] = required;
+module.exports = exports['default'];
 
 /***/ }),
 /* 152 */
@@ -17667,7 +17667,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(149);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -20132,7 +20132,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _grid = __webpack_require__(146);
+var _grid = __webpack_require__(147);
 
 exports["default"] = _grid.Col;
 module.exports = exports['default'];
@@ -20201,7 +20201,7 @@ var _FormItem = __webpack_require__(251);
 
 var _FormItem2 = _interopRequireDefault(_FormItem);
 
-var _constants = __webpack_require__(145);
+var _constants = __webpack_require__(146);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -20370,7 +20370,7 @@ var _col = __webpack_require__(249);
 
 var _col2 = _interopRequireDefault(_col);
 
-var _constants = __webpack_require__(145);
+var _constants = __webpack_require__(146);
 
 var _warning = __webpack_require__(66);
 
@@ -20973,7 +20973,7 @@ var _classnames = __webpack_require__(7);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(149);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -21285,7 +21285,7 @@ var _icon = __webpack_require__(28);
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _Modal = __webpack_require__(149);
+var _Modal = __webpack_require__(150);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -21401,7 +21401,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Modal = __webpack_require__(149);
+var _Modal = __webpack_require__(150);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -21518,7 +21518,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _grid = __webpack_require__(146);
+var _grid = __webpack_require__(147);
 
 exports["default"] = _grid.Row;
 module.exports = exports['default'];
@@ -22035,7 +22035,7 @@ var _util = __webpack_require__(14);
 
 var util = _interopRequireWildcard(_util);
 
-var _required = __webpack_require__(150);
+var _required = __webpack_require__(151);
 
 var _required2 = _interopRequireDefault(_required);
 
@@ -46275,7 +46275,7 @@ var _input = __webpack_require__(229);
 
 var _input2 = _interopRequireDefault(_input);
 
-var _css3 = __webpack_require__(147);
+var _css3 = __webpack_require__(148);
 
 var _icon = __webpack_require__(28);
 
@@ -46434,7 +46434,7 @@ var NormalLoginForm = _wrapComponent('NormalLoginForm')(function (_React$Compone
 
 var WrappedNormalLoginForm = _form2.default.create()(NormalLoginForm);
 if (document.getElementById("login")) ReactDOM.render(React.createElement(WrappedNormalLoginForm, pageParas), document.getElementById("login"));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(151)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)(module), __webpack_require__(143)))
 
 /***/ }),
 /* 741 */,

@@ -43,7 +43,7 @@ public class SysUserRepositoryTest {
     @Test
     public void createAdminAndUser() throws Exception {
         SysUser user = new SysUser();
-        user.setUsername("swl");
+        user.setUsername("admin");
         user.setPassword("123456");
         List<SysRole> sysRoleList = new ArrayList<>();
         sysRoleList.add(sysRoleRepository.findOne(1L));
@@ -55,8 +55,8 @@ public class SysUserRepositoryTest {
     @Test
     public void createUsers() throws Exception {
         SysUser user = new SysUser();
-        user.setUsername("swl2");
-        user.setPassword("123456");
+        user.setUsername("宗建峰");
+        user.setPassword("15146082288");
         List<SysRole> sysRoleList = new ArrayList<>();
         sysRoleList.add(sysRoleRepository.findOne(2L));
         user.setRoles(sysRoleList);

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface EnterpriseDirectoryRepository extends BaseRepository<EnterpriseDirectory, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN') or #username == authentication?.name")
     public Page<EnterpriseDirectory> findByUsername(@Param("username") String username, Pageable pageable);
-    @PreAuthorize("hasRole('ROLE_ADMIN') or #enterpriseDirectory.username == authentication?.name")
-    public EnterpriseDirectory save(EnterpriseDirectory enterpriseDirectory);
 
 //    spel
 }
