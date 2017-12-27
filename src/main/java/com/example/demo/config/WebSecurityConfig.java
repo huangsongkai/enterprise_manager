@@ -25,20 +25,23 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                     .antMatchers("/", "/home","/images/**","/js/**","/css/**").permitAll()
-                    .antMatchers("/logout").hasRole("USER")
-                    .antMatchers("/admin").hasRole("ADMIN")
-                    .antMatchers("/aaa").hasRole("ADMIN")
-                    .antMatchers("/somewhere").access("hasRole('ADMIN') and hasRole('USER')")
-                    .anyRequest().authenticated()
+                    //.antMatchers("/power/*").hasRole("USER")
+                        .antMatchers("/admin").hasRole("ADMIN")
+                    .antMatchers("/enterpriseDirectory").access("hasRole('ADMIN') or hasRole('USER')")
+                    .antMatchers("/blackListDirectory").access("hasRole('ADMIN') or hasRole('USER')")
+
+
+                    //.antMatchers("/register").hasRole("ADMIN")
+                    //.antMatchers("/somewhere").access("hasRole('ADMIN') and hasRole('USER')")
+                    //.anyRequest().authenticated()
                     .and()
-                .formLogin()
+                    .formLogin()
                     .loginPage("/login")
                     .permitAll()
                     .and()
-                .logout().permitAll()
+                    .logout().permitAll()
                     .and().csrf().disable();
     }
     @Bean
